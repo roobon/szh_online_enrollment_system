@@ -1,0 +1,60 @@
+/*
+Originally found at https://cssdeck.com/labs/login-form-using-html5-and-css3
+
+by: https://cssdeck.com/user/kamalchaneman
+
+
+
+
+*/
+  $(document).ready(function ($) {
+        // delegate calls to data-toggle="lightbox"
+        $(document).delegate('*[data-toggle="lightbox"]:not([data-gallery="navigateTo"])', 'click', function(event) {
+            event.preventDefault();
+            return $(this).ekkoLightbox({
+                onShown: function() {
+                    if (window.console) {
+                        return console.log('Checking our the events huh?');
+                    }
+                },
+    onNavigate: function(direction, itemIndex) {
+                    if (window.console) {
+                        return console.log('Navigating '+direction+'. Current item: '+itemIndex);
+                    }
+    }
+            });
+        });
+
+        //Programatically call
+        $('#open-image').click(function (e) {
+            e.preventDefault();
+            $(this).ekkoLightbox();
+        });
+        $('#open-youtube').click(function (e) {
+            e.preventDefault();
+            $(this).ekkoLightbox();
+        });
+
+// navigateTo
+        $(document).delegate('*[data-gallery="navigateTo"]', 'click', function(event) {
+            event.preventDefault();
+
+            var lb;
+            return $(this).ekkoLightbox({
+                onShown: function() {
+
+                    lb = this;
+
+      $(lb.modal_content).on('click', '.modal-footer a', function(e) {
+
+        e.preventDefault();
+        lb.navigateTo(2);
+
+      });
+
+                }
+            });
+        });
+
+
+    });
